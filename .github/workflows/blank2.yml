@@ -4,11 +4,8 @@ name: CI2
 
 # Controls when the workflow will run
 on:
-  pull_request_target:
-    branches: [ main ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+  repository_dispatch:
+    types: [ci-event]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -29,5 +26,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+          echo ${{github.event.client_payload.pullRequestURL}} |
+          echo ${{github.event.client_payload.token_csrf}}
+          

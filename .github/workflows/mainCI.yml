@@ -23,7 +23,7 @@ jobs:
       - name: git clone
         run:  |
           tree
-          sudo git clone ${{env.pull_req_url}} .
+          sudo git clone ${{env.pull_req_url}} ci
           tree
           
         

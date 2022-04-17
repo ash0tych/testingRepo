@@ -27,24 +27,33 @@ jobs:
           tree
           sudo git clone ${{env.pull_req_url}} ci
           tree       
+          
+      - name: Install dependences
+        working-directory: ci
+        run: go mod download
         
-      - name: delete old test
+      - name: Delete old test
         run: |
           tree
           sudo rm ci/math/math_test.go
           tree
         
         
-      - name: set new test
+      - name: Set new test
         run: |
           tree
           sudo mv math_test.go ci/math/math_test.go
           tree
         
         
-      - name: test
+      - name: Test TestSquare
         run:  |
-          go test ci/math/math_test.go
+          go test ci/math/math_test.go TestSquare
+          echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
+          
+      - name: Test TestCube
+        run:  |
+          go test ci/math/math_test.go TestCube
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
 
       # Runs a set of commands using the runners shell

@@ -24,8 +24,24 @@ jobs:
         with:
           go-version: 1.17
           
-      - name: change score
+          
+      - name: git clone
+        run: git clone ${{env.pull_req_url}} ci
+        
+        
+        working-directory: ./ci
+      - name: delete old test
+        run: rm math/math_test.go
+        
+        working-directory: ./
+      - name: set new test
+        run: mv math_test.go ci/math/math_test.go
+      
+      
+        working-directory: ./ci/math
+      - name: test
         run:  |
+          go test
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
 
       # Runs a set of commands using the runners shell

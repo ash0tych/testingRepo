@@ -30,18 +30,15 @@ jobs:
         
         
       - name: delete old test
-        working-directory: ci
         run: rm math/math_test.go
         
         
       - name: set new test
-        working-directory: ./
-        run: mv math_test.go ci/math/math_test.go
+        run: mv math_test.go math/math_test.go
         
       - name: test
-        working-directory: ci/math
         run:  |
-          go test
+          go test math/math_test.go
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
 
       # Runs a set of commands using the runners shell

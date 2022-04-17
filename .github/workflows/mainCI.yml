@@ -32,10 +32,15 @@ jobs:
         run: |
           tree
           sudo rm ci/math/math_test.go
+          tree
         
         
       - name: set new test
-        run: sudo mv math_test.go ci/math/math_test.go
+        run: |
+          tree
+          sudo mv math_test.go ci/math/math_test.go
+          tree
+        
         
       - name: test
         run:  |

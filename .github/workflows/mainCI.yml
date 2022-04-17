@@ -25,7 +25,7 @@ jobs:
       - name: git clone
         run:  |
           tree
-          sudo git clone ${{env.pull_req_url}} ci
+          sudo git clone ${{env.pull_req_url}} .
           tree       
         
       - name: delete old test

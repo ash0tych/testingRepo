@@ -23,7 +23,9 @@ jobs:
       - name: git clone
         run:  |
           tree
-          git clone ${{env.pull_req_url}} .
+          sudo git clone ${{env.pull_req_url}} .
+          tree
+          
         
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2

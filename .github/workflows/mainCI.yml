@@ -18,16 +18,17 @@ jobs:
         run: |
           pull_req_url=${{github.event.client_payload.pull_request_url}}
           token=${{github.event.client_payload.token_csrf}}
-          task_id=1
+          task_id=0
           adapter_op=${{github.event.client_payload.adapter_url}}
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+        if: always()
         run: |
-          echo  |
-          echo 
+          echo $pull_req_url
+          echo $token
+          echo $task_id
+          echo $adapter_op
           

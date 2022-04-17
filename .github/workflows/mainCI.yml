@@ -2,6 +2,7 @@ name: ci
 
 on:
   repository_dispatch:
+    type: [ci-event]
   workflow_dispatch:
 
 jobs:

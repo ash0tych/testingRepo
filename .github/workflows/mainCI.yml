@@ -25,17 +25,17 @@ jobs:
       - name: git clone
         run:  |
           tree
-          sudo git clone ${{env.pull_req_url}} .
+          sudo git clone ${{env.pull_req_url}} ci
           tree       
         
       - name: delete old test
         run: |
           tree
-          rm math/math_test.go
+          rm ci/math/math_test.go
         
         
       - name: set new test
-        run: mv math_test.go math/math_test.go
+        run: mv math_test.go ci/math/math_test.go
         
       - name: test
         run:  |

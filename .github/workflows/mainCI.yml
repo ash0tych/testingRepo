@@ -21,7 +21,9 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
           
       - name: git clone
-        run: git clone ${{env.pull_req_url}} .
+        run:  |
+          tree
+          git clone ${{env.pull_req_url}} .
         
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
@@ -30,7 +32,9 @@ jobs:
         
         
       - name: delete old test
-        run: rm math/math_test.go
+        run: |
+          tree
+          rm math/math_test.go
         
         
       - name: set new test

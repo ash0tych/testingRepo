@@ -11,6 +11,6 @@ func TestCube(t *testing.T) {
 }
 
 func TestSquare(t *testing.T) {
-	assert.Equal(t, 25, Cube(5))
-	assert.Equal(t, 25, Cube(-5))
+	assert.Equal(t, 25, Square(5))
+	assert.Equal(t, 25, Square(-5))
 }

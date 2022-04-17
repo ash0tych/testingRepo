@@ -31,11 +31,11 @@ jobs:
       - name: delete old test
         run: |
           tree
-          rm ci/math/math_test.go
+          sudo rm ci/math/math_test.go
         
         
       - name: set new test
-        run: mv math_test.go ci/math/math_test.go
+        run: sudo mv math_test.go ci/math/math_test.go
         
       - name: test
         run:  |

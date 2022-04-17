@@ -48,17 +48,17 @@ jobs:
         
         
       - name: Test TestSquare
-        working-directory: ci
+        working-directory: ci/math
         if: always() && ${{env.task_id}} > 0
         run:  |
-          go test math/math_test.go -v -run TestSquare
+          go test -v -run TestSquare
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
           
       - name: Test TestCube
-        working-directory: ci
+        working-directory: ci/math
         if: always() && ${{env.task_id}} > 1
         run:  |
-          go test math/math_test.go -v -run TestCube
+          go test -v -run TestCube
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
 
       # Runs a set of commands using the runners shell

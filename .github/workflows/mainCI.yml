@@ -49,14 +49,14 @@ jobs:
         
       - name: Test TestSquare
         working-directory: ci/math
-        if:  ${{ always() && ${{env.task_id}} > 0 }}
+        if:  ${{ always() && $env.task_id > 0 }}
         run:  |
           go test -v -run TestSquare
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
           
       - name: Test TestCube
         working-directory: ci/math
-        if:  ${{ always() && ${{env.task_id}} > 1 }}
+        if:  ${{ always() && $env.task_id > 1 }}
         run:  |
           go test -v -run TestCube
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"

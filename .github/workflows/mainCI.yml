@@ -19,27 +19,27 @@ jobs:
 
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+          
+      - name: git clone
+        run: git clone ${{env.pull_req_url}} .
+        
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
           go-version: 1.17
-          
-          
-      - name: git clone
-        run: git clone ${{env.pull_req_url}} ci
         
         
-        working-directory: ci
       - name: delete old test
+        working-directory: ci
         run: rm math/math_test.go
         
-        working-directory: ./
+        
       - name: set new test
+        working-directory: ./
         run: mv math_test.go ci/math/math_test.go
-      
-      
-        working-directory: ci/math
+        
       - name: test
+        working-directory: ci/math
         run:  |
           go test
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"

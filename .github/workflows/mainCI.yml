@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-go@v2
         with:
-          go-version: '17'
+          go-version: 1.17
           
       - name: Setup constant
         run: |
@@ -27,8 +27,8 @@ jobs:
       - name: Run a multi-line script
         if: always()
         run: |
-          echo $pull_req_url
-          echo $token
-          echo $task_id
-          echo $adapter_op
+          echo $pull_req_url |
+          echo $token |
+          echo $task_id |
+          echo $adapter_op |
           

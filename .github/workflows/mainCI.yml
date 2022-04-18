@@ -15,7 +15,7 @@ jobs:
         token: ${{github.event.client_payload.token_csrf}}
         task_score: 0
         max_score: 0
-        task_id: 2 # ${{github.event.client_payload.task_id}}
+        task_id: 1 # ${{github.event.client_payload.task_id}}
         adapter_url: ${{github.event.client_payload.adapter_url}}
 
     steps:

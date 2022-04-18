@@ -15,7 +15,8 @@ jobs:
         token: ${{github.event.client_payload.token_csrf}}
         task_score: 0
         max_score: 0
-        task_id: 1 # ${{github.event.client_payload.task_id}}
+        status: Done
+        task_id: ${{github.event.client_payload.task_id}}
         adapter_url: ${{github.event.client_payload.adapter_url}}
 
     steps:
@@ -67,8 +68,20 @@ jobs:
       - name: Run a multi-line script
         if: always()
         run: |
-          echo ${{ env.pull_req_url}} 
-          echo ${{ env.token}} 
-          echo ${{ env.task_score}} 
-          echo ${{ env.max_score}} 
-          echo ${{ env.adapter_url}} 
+          echo Obtained Scorere: ${{ env.task_score}} 
+          echo Max score: ${{ env.max_score}} 
+      
+      - name: Set status
+        if: ${{ env.task_score != env.max_score  }}
+        run:  |
+          echo "status=Errors" >> "$GITHUB_ENV"
+          
+          
+      - name: Hello edu, i'm coming for you
+        run: |
+          curl \
+          -X PUT \
+          -H "Accept: application/vnd.github.v3+json" \
+          ${{ env.adapter_url }} \
+          -d '{"token_csrf":"${{ env.token}}","ci_score":"${{env.task_score}}","ci_max_score":"${{env.max_score}}","ci_status":"${{env.status}}" }'
+          

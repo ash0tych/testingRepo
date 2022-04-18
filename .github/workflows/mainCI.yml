@@ -14,6 +14,7 @@ jobs:
         pull_req_url: ${{github.event.client_payload.pull_request_url}}
         token: ${{github.event.client_payload.token_csrf}}
         task_score: 0
+        max_score: 0
         task_id: 2 # ${{github.event.client_payload.task_id}}
         adapter_url: ${{github.event.client_payload.adapter_url}}
 
@@ -23,7 +24,7 @@ jobs:
         with:
           go-version: 1.17
           
-      - name: git clone
+      - name: Git clone
         run:  |
           tree
           sudo git clone ${{env.pull_req_url}} ci
@@ -46,11 +47,11 @@ jobs:
           sudo mv math_test.go ci/math/math_test.go
           tree
         
-        
       - name: Test TestSquare
         working-directory: ci/math
         if:  ${{ always() && env.task_id > 0 }}
         run:  |
+          echo "max_score=$(expr ${{env.max_score}} + 1)" >> "$GITHUB_ENV"
           go test -v -run TestSquare
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
           
@@ -58,6 +59,7 @@ jobs:
         working-directory: ci/math
         if:  ${{ always() && env.task_id > 1 }}
         run:  |
+          echo "max_score=$(expr ${{env.max_score}} + 1)" >> "$GITHUB_ENV"
           go test -v -run TestCube
           echo "task_score=$(expr ${{env.task_score}} + 1)" >> "$GITHUB_ENV"
 
@@ -68,4 +70,5 @@ jobs:
           echo ${{ env.pull_req_url}} 
           echo ${{ env.token}} 
           echo ${{ env.task_score}} 
+          echo ${{ env.max_score}} 
           echo ${{ env.adapter_url}} 

@@ -79,6 +79,7 @@ jobs:
           
       - name: Hello edu, i'm coming for you
         run: |
+          echo ${{github.event.client_payload.task_id}}
           curl \
           -X PUT \
           -H "Accept: application/vnd.github.v3+json" \

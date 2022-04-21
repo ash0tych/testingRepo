@@ -50,7 +50,7 @@ jobs:
         
       - name: Test TestSquare
         working-directory: ci/math
-        if:  ${{ always() && env.task_id > 0 }}
+        if:  ${{ always() && (env.task_id == 98684 || env.task_id == 101195) }}
         run:  |
           echo "max_score=$(expr ${{env.max_score}} + 1)" >> "$GITHUB_ENV"
           go test -v -run TestSquare
@@ -58,7 +58,7 @@ jobs:
           
       - name: Test TestCube
         working-directory: ci/math
-        if:  ${{ always() && env.task_id > 1 }}
+        if:  ${{ always() && env.task_id == 101195}}
         run:  |
           echo "max_score=$(expr ${{env.max_score}} + 1)" >> "$GITHUB_ENV"
           go test -v -run TestCube
@@ -79,10 +79,10 @@ jobs:
           
       - name: Hello edu, i'm coming for you
         run: |
-          echo ${{github.event.client_payload.task_id}}
-          #curl \
-          #-X PUT \
-          #-H "Accept: application/vnd.github.v3+json" \
-          #${{ env.adapter_url }} \
-          #-d '{"token_csrf":"${{ env.token}}","ci_score":${{env.task_score}},"ci_max_score":${{env.max_score}},"ci_status":"${{env.status}}" }'
+          echo grade task_id
+          curl \
+          -X PUT \
+          -H "Accept: application/vnd.github.v3+json" \
+          ${{ env.adapter_url }} \
+          -d '{"token_csrf":"${{ env.token}}","ci_score":${{env.task_score}},"ci_max_score":${{env.max_score}},"ci_status":"${{env.status}}" }'
           

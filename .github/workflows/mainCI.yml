@@ -72,9 +72,10 @@ jobs:
           echo Max score: ${{ env.max_score}} 
       
       - name: Set status
-        if: ${{ env.task_score != env.max_score  }}
+        if: ${{ failure() }}
         run:  |
           echo "status=Errors" >> "$GITHUB_ENV"
+    
           
           
       - name: Hello edu, i'm coming for you

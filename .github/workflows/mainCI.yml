@@ -79,6 +79,7 @@ jobs:
           
           
       - name: Hello edu, i'm coming for you
+        if: ${{ always() }}
         run: |
           echo grade task_id
           curl \
